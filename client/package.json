@@ -1,0 +1,51 @@
+{
+  "name": "three-bees-notes",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@fontsource/roboto": "^5.0.13",
+    "@mui/icons-material": "^5.15.20",
+    "@mui/material": "^5.15.20",
+    "@mui/system": "^5.15.20",
+    "@prisma/client": "^5.15.1",
+    "@uidotdev/usehooks": "^2.4.1",
+    "@uiw/react-md-editor": "^4.0.4",
+    "@xenova/transformers": "^2.17.2",
+    "axios": "^1.7.2",
+    "next": "14.2.1",
+    "next-auth": "^4.24.7",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.12.0",
+    "prisma": "^5.15.1",
+    "react": "^18",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dom": "^18",
+    "react-loading-skeleton": "^3.4.0",
+    "react-markdown": "^9.0.1",
+    "react-syntax-highlighter": "^15.5.0",
+    "swr": "^2.2.5",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-beautiful-dnd": "^13.1.8",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.1",
+    "postcss": "^8",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

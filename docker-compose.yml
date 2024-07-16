@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  client:
+    build:
+      context: ./client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: ./server-py
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}

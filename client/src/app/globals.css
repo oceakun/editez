@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+PL:wght@100..400&display=swap');
+
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100&family=Just+Another+Hand&family=Patrick+Hand&display=swap");
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+    --font-mono: "__JetBrains_Mono_5cc6d4", "__JetBrains_Mono_Fallback_5cc6d4";
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 55, 65, 81;
+    --color-canvas-default: rgb(55, 65, 81);
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+
+  /* font-family: var(--font-mono), JetBrains Mono, ui-monospace, SFMono-Regular,
+    Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; */
+  font-family: "Playwrite PL", cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  html {
+    font-family: "Proxima Nova", system-ui, sans-serif;
+  }
+}
+
+.hero-gradient-button {
+  color: #fff;
+  font-weight: 500;
+  border-radius: 0.375rem; /* 6px */
+  padding: 0.5rem 1rem; /* 8px 16px */
+  font-size: 0.875rem; /* 14px */
+  text-align: center;
+  background-image: linear-gradient(to right, #16a085, #3498db);
+  transition: background-image 3s ease;
+}
+
+.hero-gradient-button:hover {
+  background-image: linear-gradient(to right, #f39c12, #e74c3c);
+}
+
+
+body .w-md-editor-text-pre > code,
+body .w-md-editor-text-input {
+  font-size: 14px !important;
+  /* line-height: 14px !important; */
+}
+
+body .w-md-editor {
+  border:none;
+  /* padding:4px 0; */
+  background:#000000;
+}
+
+body .w-md-editor-toolbar {
+  background:#080808;
+  border:none;
+  padding:10px 4px;
+  justify-content: center;
+}
+
+
+body .w-md-editor-toolbar >ul>li>button {
+  height: 30px !important;
+  width: 30px !important;
+  color: #b4bbc3;
+  background: #1f1e1f;
+  margin:2px 5px;
+  /* text-align: center; */
+  display:flex;
+  flex-flow:row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+body .w-md-editor-toolbar-child > ul>li>button>svg {
+  color: var(--text);
+}
+
+.Select:focus {
+  box-shadow: none !important;
+}
+
+*:focus{
+  box-shadow: none !important;
+}
+
+.card-markdown-content h1 {
+  color: rgb(193, 233, 188); /* light green */
+}
+.card-markdown-content h2,
+.card-markdown-content h3,
+.card-markdown-content h4,
+.card-markdown-content h5,
+.card-markdown-content b,
+.card-markdown-content strong {
+  color: rgb(211, 211, 211); /* light gray */
+}
+.card-markdown-content p {
+  color: rgb(169, 169, 169); /* dark gray */
+}
+.card-markdown-content blockquote {
+  color: rgb(192, 192, 192); /* silver */
+  border-left: 4px solid rgb(193, 233, 188); /* light green */
+  padding-left: 10px;
+  margin-left: 0;
+  font-style: italic;
+}
+.card-markdown-content ul,
+.card-markdown-content ol {
+  color: rgb(169, 169, 169); /* dark gray */
+  margin-left: 20px;
+}
+.card-markdown-content li {
+  color: rgb(169, 169, 169); /* dark gray */
+}
+.card-markdown-content li strong {
+  color: rgb(211, 211, 211); /* light gray */
+}
+.card-markdown-content code {
+  color: rgb(255, 182, 193); /* light pink */
+  background-color: rgb(21, 19, 19); /* white smoke */
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+.card-markdown-content pre {
+  color: rgb(245, 245, 245); /* white smoke */
+  background-color: rgb(33, 31, 31); /* dark gray */
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+.card-markdown-content a {
+  color: rgb(173, 216, 230); /* light blue */
+  text-decoration: none;
+}
+.card-markdown-content a:hover {
+  text-decoration: underline;
+}
+.card-markdown-content img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid rgb(193, 233, 188); /* light green */
+  border-radius: 4px;
+}
+.card-markdown-content hr {
+  border: 1px solid rgb(193, 233, 188); /* light green */
+}
+.card-markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.card-markdown-content th,
+.card-markdown-content td {
+  border: 1px solid rgb(193, 233, 188); /* light green */
+  padding: 8px;
+  text-align: left;
+}
+.card-markdown-content th {
+  background-color: rgb(240, 255, 240); /* honeydew */
+}
+.card-markdown-content td {
+  background-color: rgb(245, 245, 245); /* white smoke */
+}
+.card-markdown-content del {
+  color: rgb(255, 160, 122); /* light salmon */
+}
+.card-markdown-content em {
+  color: rgb(216, 191, 216); /* thistle */
+}
+.card-markdown-content sub {
+  color: rgb(144, 238, 144); /* light green */
+}
+.card-markdown-content sup {
+  color: rgb(144, 238, 144); /* light green */
+}
+.card-markdown-content mark {
+  background-color: rgb(255, 255, 224); /* light yellow */
+  color: rgb(169, 169, 169); /* dark gray */
+}
+
+/* Add this CSS to your global stylesheet */
+.gradient-shadow {
+  position: relative;
+  display: inline-block;
+}
+
+.gradient-shadow::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  left: -4px;
+  background: linear-gradient(to right, #84cc16, #34d399, #064e3b);
+  filter: blur(8px);
+  z-index: -1;
+  border-radius: 4px;
+  opacity: 0.8;
+}
+
+.custom-range-slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  height: 15px; /* Specified height */
+  background: #101010; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  transition: opacity .2s; /* 0.2 seconds transition on hover */
+  /* Background color */
+  background: #101010; /* Light grey background */
+}
+
+/* Mouse-over effects */
+.custom-range-slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use webkit (Chrome/Safari) and moz (Firefox) */
+.custom-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: black; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.custom-range-slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: black;
+  cursor: pointer;
+}
+
+/* Firefox */
+.custom-range-slider::-moz-range-track {
+  background: #101010;
+  border:1px;
+}
