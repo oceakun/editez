@@ -46,3 +46,5 @@ __pycache__
 node_modules
 env
 .next
+/client/.env
+/server/.env
