@@ -1,5 +1,7 @@
 # EditEz
 
+![File container](./assets/my_files.png)
+
 EditEz is a comprehensive editor application that allows users to create, edit, delete, and download markdown files. It offers powerful features like file summarization using LLMs (Large Language Models) and vector search to efficiently search through files. The application now includes JWT authentication, protected routes, user login and registration, and improved responsiveness. Future updates will include support for additional file formats such as PDF, DOCX, and TXT.
 
 
@@ -94,7 +96,14 @@ EditEz is a comprehensive editor application that allows users to create, edit, 
 
 ### Contributing
 
-We welcome contributions! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) to learn how you can get involved.
+Contributions are welcome, just create an issue!
+
+### Credits
+*https://github.com/jod35/JWT-Auth-for-Flask*
+A majority of this repository's code was used for the JWT authentication API.
+
+*https://github.com/sungvzer/NoteTakingApp*
+This project provided a skeleton for the UI.
 
 ### License
 
