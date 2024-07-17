@@ -5,6 +5,7 @@ from pgvector.psycopg2 import register_vector
 from transformers import AutoTokenizer, AutoModel
 import tiktoken
 from datetime import datetime
+import os
 
 def create_embedding_and_save_record(user_id: int, title: str, content: str, created_at: datetime):
     print(f"Processing new record")
@@ -36,13 +37,21 @@ def create_embedding_and_save_record(user_id: int, title: str, content: str, cre
             chunks.append(tiktoken.get_encoding("cl100k_base").decode(chunk))
         return chunks
 
-    print("Connecting to the database")
+    dbname = os.getenv('DB_NAME')
+    user = os.getenv('DB_USER')
+    password = os.getenv('DB_PASSWORD')
+    host = os.getenv('DB_HOST')
+
+    # Connect to the database
     conn = psycopg2.connect(
-        dbname="second_brain",
-        user="postgres",
-        password="here_goes_the_password",
-        host="localhost"
+    dbname=dbname,
+    user=user,
+    password=password,
+    host=host
     )
+
+    # print("Connecting to the database")
+    
     cur = conn.cursor(cursor_factory=DictCursor)
 
     print("Checking for vector extension")

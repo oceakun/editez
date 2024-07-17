@@ -1,26 +1,28 @@
-import psycopg2
 import numpy as np
 from psycopg2.extras import execute_values
 from pgvector.psycopg2 import register_vector
 from transformers import AutoTokenizer, AutoModel
-import tiktoken
-
-import psycopg2
+import tiktoken, os, psycopg2, tiktoken
 import numpy as np
 from psycopg2.extras import execute_values
 from pgvector.psycopg2 import register_vector
 from transformers import AutoTokenizer, AutoModel
-import tiktoken
 
 def retrieve_similar_content(query, user_id):
     print("entered retrieve_similar_content")
     
     def get_top_similar_docs(query_embedding, user_id):
+        dbname = os.getenv('DB_NAME')
+        user = os.getenv('DB_USER')
+        password = os.getenv('DB_PASSWORD')
+        host = os.getenv('DB_HOST')
+
+        # Connect to the database
         conn = psycopg2.connect(
-            dbname="second_brain",
-            user="postgres",
-            password="here_goes_the_password",
-            host="localhost"
+        dbname=dbname,
+        user=user,
+        password=password,
+        host=host
         )
         embedding_array = np.array(query_embedding)
         register_vector(conn)

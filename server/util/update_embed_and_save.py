@@ -1,9 +1,8 @@
-import psycopg2
+import psycopg2,os,tiktoken
 import numpy as np
 from psycopg2.extras import execute_values
 from pgvector.psycopg2 import register_vector
 from transformers import AutoTokenizer, AutoModel
-import tiktoken
 from datetime import datetime
 
 def update_embedding_for_record(id: int, title: str, content: str, created_at: datetime):
@@ -29,11 +28,17 @@ def update_embedding_for_record(id: int, title: str, content: str, created_at: d
         return num_tokens
 
     print("Connecting to the database")
+    dbname = os.getenv('DB_NAME')
+    user = os.getenv('DB_USER')
+    password = os.getenv('DB_PASSWORD')
+    host = os.getenv('DB_HOST')
+
+    # Connect to the database
     conn = psycopg2.connect(
-        dbname="second_brain",
-        user="postgres",
-        password="here_goes_the_password",
-        host="localhost"
+    dbname=dbname,
+    user=user,
+    password=password,
+    host=host
     )
     cur = conn.cursor()
 

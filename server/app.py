@@ -19,10 +19,12 @@ def create_app():
     # Load configuration from environment variables
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable track modifications to save resources
+    app.config['DEBUG'] = os.getenv('DEBUG_MODE') == 'development'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 
-    # Enable CORS for specific origins
-    CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+    allowed_origins = os.getenv('ALLOWED_ORIGINS').split(',')
+
+    CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
     # Initialize extensions
     db.init_app(app)
