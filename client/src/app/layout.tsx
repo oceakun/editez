@@ -10,7 +10,7 @@ import ClientLayoutContent from "./ClientLayoutContent";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "EditEz, an Innovative Editing App",
+  title: "EditEz",
   description:
     "EditEz is a comprehensive editor application that allows users to create, edit, delete, and download markdown files. It also offers powerful features like file summarization using LLMs and vector search to efficiently search through files.",
 };
