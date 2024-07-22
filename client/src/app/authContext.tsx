@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     email: string,
     password: string
   ) => {
-    const response = await fetch("/api/auth/register", {
+    const response = await fetch("http://localhost:4000/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -149,9 +149,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (response.ok) {
         setUser(null);
+        router.push("/");
         localStorage.removeItem("accessToken");
         localStorage.removeItem("username");
-        router.push("/login");
       } else {
         console.error("Logout failed:", response.status, await response.text());
       }
