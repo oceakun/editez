@@ -465,8 +465,8 @@ const NoteContainer = () => {
               <MenuItem value={"Falconsai/text_summarization"}>
                 Falconsai
               </MenuItem>
-              <MenuItem value={"./models/seq2seq"}>Seq2Seq</MenuItem>
-              <MenuItem value={"./models/rnn"}>RNN</MenuItem>
+              <MenuItem value={"./trained_models/seq2seq"}>Seq2Seq</MenuItem>
+              <MenuItem value={"./trained_models/rnn"}>RNN</MenuItem>
             </Select>
           </FormControl>
 
@@ -650,7 +650,7 @@ const NoteContainer = () => {
           />
         </div>
       </div>
-      
+
       <div className="custom:hidden flex flex-row justify-around items-center border border-gray-200 dark:border-[#171a18] rounded w-full">
         <div
           className="enter-query hover:cursor-pointer hover:bg-[#101010] border-[1px] border-[#101010] p-[10px]"
