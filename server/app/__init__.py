@@ -1,56 +1,42 @@
-
 from flask import Flask, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-from dotenv import load_dotenv
-import os
-from extensions import db, jwt
-from auth import auth_bp
-from users import user_bp
-from notes import note_bp
-from models import User, TokenBlocklist
+from .extensions import db, jwt, migrate
+from .models.user import User
+from .models.tokenblocklist import TokenBlocklist
 
-load_dotenv()
-
-def create_app():
+def create_app(config_name='development'):
     app = Flask(__name__)
     
-    # Load configuration from environment variables
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
-    app.config['DEBUG'] = os.getenv('DEBUG_MODE') == 'development'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-
-    allowed_origins = os.getenv('ALLOWED_ORIGINS').split(',')
-
-    CORS(app, resources={r"/*": {"origins": allowed_origins}})
-
+    # Load configuration
+    app.config.from_object(f'app.config.{config_name.capitalize()}Config')
+    
     # Initialize extensions
+    CORS(app, resources={r"/*": {"origins": app.config['ALLOWED_ORIGINS']}})
     db.init_app(app)
     jwt.init_app(app)
-
+    migrate.init_app(app, db)
+    
     # Register blueprints
+    from .auth.routes import auth_bp
+    from .users.routes import user_bp
+    from .notes.routes import note_bp
+    
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(user_bp, url_prefix="/users")
     app.register_blueprint(note_bp, url_prefix="/data")
-
+    
     # JWT configuration
-
-    # Load user
     @jwt.user_lookup_loader
     def user_lookup_callback(_jwt_headers, jwt_data):
         identity = jwt_data["sub"]
         return User.query.filter_by(username=identity).one_or_none()
 
-    # Additional claims
     @jwt.additional_claims_loader
     def make_additional_claims(identity):
         if identity == "thecreator":
             return {"is_staff": True}
         return {"is_staff": False}
 
-    # JWT error handlers
     @jwt.expired_token_loader
     def expired_token_callback(jwt_header, jwt_data):
         return jsonify({"message": "Token has expired", "error": "token_expired"}), 401
@@ -72,10 +58,4 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-
     return app
-
-# Main entry point for running the Flask application
-if __name__ == "__main__":
-    app = create_app()
-    app.run(port=int(os.getenv("PORT", 4000)))
