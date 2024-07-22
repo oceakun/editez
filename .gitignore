@@ -37,9 +37,8 @@ env
 
 /client/.next
 
-models
-
-editease_server-venv
+trained_models
+venv
 
 __pycache__
 
