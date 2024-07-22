@@ -1,51 +1,70 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { useAuth } from "../authContext";
 
 export default function page() {
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [username, setUsername] = useState("");
-
-  const logIn = () => {
-    setLoginEmail("");
-    setLoginPassword("");
-    setUsername("");
-  };
+  const { register } = useAuth();
+  const [registrationEmail, setRegistrationEmail] = useState("");
+  const [registrationPassword, setRegistrationPassword] = useState("");
+  const [registrationUsername, setRegistrationUsername] = useState("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleEmail = (e: any) => {
     e.preventDefault();
     const val = e.target.value;
-    setLoginEmail(val);
+    setRegistrationEmail(val);
   };
 
   const handlePassword = (e: any) => {
     e.preventDefault();
     const val = e.target.value;
-    setLoginPassword(val);
+    setRegistrationPassword(val);
   };
 
   const handleUsername = (e: any) => {
     e.preventDefault();
     const val = e.target.value;
-    setUsername(val);
+    setRegistrationUsername(val);
+  };
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("handleSubmit");
+    e.preventDefault();
+    setError(null);
+
+    try {
+      await register(
+        registrationUsername,
+        registrationEmail,
+        registrationPassword
+      ); // Call the login function from auth context
+    } catch (error) {
+      setError("Login failed. Please check your credentials.");
+    }
+  };
+
+  const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   return (
     <main className="flex flex-col p-10 text-center items-center flex-grow bg-black gap-4 w-full font-mono ">
       <div className="flex flex-row md:flex-row justify-center items-center md:items-center gap-6 md:gap-4 mb-6  rounded bg-gradient-to-r from-red-800 via-orange-500 to-yellow-500 p-[1px]">
-        <div className="flex flex-col items-center rounded-lg p-8 bg-black gap-4 ">
+        <form className="flex flex-col items-center rounded-lg p-8 bg-black gap-4 ">
           <h3 className="text-2xl font-normal text-white mb-4">Register</h3>
           <div className="mb-0 w-full">
             <p className="text-gray-300 mb-2 text-left">Username</p>
             <input
-              type="email"
+              type="text"
               placeholder="..."
-              onChange={handleEmail}
-              value={loginEmail}
-              name="email"
+              onChange={handleUsername}
+              value={registrationUsername}
+              name="username"
               required
-              className="md:w-[300px] w-[250px] border border-black rounded-sm h-8 bg-[#141414] text-white text-center focus:outline-none focus:opacity-100 opacity-70"
+              className="md:w-[300px] w-[250px] border border-black rounded-sm h-8 bg-[#141414] text-white text-left focus:outline-none focus:opacity-100 opacity-70 px-2"
             />
           </div>
 
@@ -55,30 +74,70 @@ export default function page() {
               type="email"
               placeholder="..."
               onChange={handleEmail}
-              value={loginEmail}
+              value={registrationEmail}
               name="email"
               required
-              className="md:w-[300px] w-[250px] border border-black rounded-sm h-8 bg-[#141414] text-white text-center focus:outline-none focus:opacity-100 opacity-70"
+              className="md:w-[300px] w-[250px] border border-black rounded-sm h-8 bg-[#141414] text-white text-left focus:outline-none focus:opacity-100 opacity-70 px-2"
             />
           </div>
 
           <div className="mb-2 w-full">
             <p className="text-gray-300 mb-2 text-left">Password</p>
-            <input
-              type="password"
-              placeholder="..."
-              onChange={handlePassword}
-              value={loginPassword}
-              name="password"
-              required
-              className="md:w-[300px] w-[250px] border border-black rounded-sm h-8 bg-[#141414] text-white text-center focus:outline-none focus:opacity-100 opacity-70"
-            />
+            <div className="flex flex-row justify-around items-center border border-black rounded-sm h-8 bg-[#141414] text-white text-center focus:outline-none focus:opacity-100 ">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="..."
+                onChange={handlePassword}
+                value={registrationPassword}
+                name="password"
+                required
+                className="md:w-[250px] w-[200px] rounded-sm  bg-[#141414] text-white text-left focus:outline-none focus:opacity-100 opacity-70"
+              />
+              <button onClick={togglePasswordVisibility}>
+                {showPassword ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="gray"
+                    className="w-5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="gray"
+                    className="w-5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
 
           <div className="w-full flex flex-col gap-10">
             <button
+              onClick={handleSubmit}
               type="submit"
-              onClick={logIn}
               className="bg-[#141414] text-white w-full cursor-pointer h-8 text-center border border-gray-600 rounded-sm opacity-80 hover:opacity-100"
             >
               {"->"}
@@ -101,7 +160,7 @@ export default function page() {
               Login
             </Link>
           </p>
-        </div>
+        </form>
       </div>
     </main>
   );
